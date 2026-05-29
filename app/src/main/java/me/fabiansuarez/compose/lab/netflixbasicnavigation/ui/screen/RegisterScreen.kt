@@ -49,6 +49,7 @@ fun RegisterScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .statusBarsPadding()
             .background(NetflixBlack)
     ) {
         Column(

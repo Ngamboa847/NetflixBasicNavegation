@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import me.fabiansuarez.compose.lab.netflixbasicnavigation.ui.screen.HomeScreen
 import me.fabiansuarez.compose.lab.netflixbasicnavigation.ui.screen.LoginScreen
 import me.fabiansuarez.compose.lab.netflixbasicnavigation.ui.screen.RegisterScreen
 import me.fabiansuarez.compose.lab.netflixbasicnavigation.ui.screen.RegisterStep2Screen
@@ -30,15 +31,15 @@ class MainActivity : ComponentActivity() {
                 navController = MyNavController,
                 startDestination = "login",
                 modifier = Modifier.fillMaxSize()
-            ){
-                composable(route=Routes.LOGIN){
+            ) {
+                composable(route = Routes.LOGIN) {
                     LoginScreen(
                         onClickSuscribirse = {
                             MyNavController.navigate(Routes.REGISTER)
                         }
                     )
                 }
-                composable(route=Routes.REGISTER){
+                composable(route = Routes.REGISTER) {
                     RegisterScreen(
                         onClickVolver = {
                             MyNavController.popBackStack()
@@ -49,20 +50,33 @@ class MainActivity : ComponentActivity() {
 
                     )
                 }
-                composable(route=Routes.REGISTER_STEP_2){
+                composable(route = Routes.REGISTER_STEP_2) {
                     RegisterStep2Screen(
-                        onClickVolve = {
+                        onClickVolver = {
                             MyNavController.popBackStack()
                         },
-                        onClickSiguient = {
+                        onClickSiguiente = {
                             MyNavController.navigate(Routes.REGISTER_STEP_3)
                         }
                     )
                 }
-                composable(route=Routes.REGISTER_STEP_3){
+                composable(route = Routes.REGISTER_STEP_3) {
                     RegisterStep3Screen(
                         onClickVolver = {
                             MyNavController.popBackStack()
+                        },
+                        onClickSiguiente = {
+                            MyNavController.navigate(
+                                Routes.HOME
+                            )
+                        }
+                    )
+                }
+
+                composable(route = Routes.HOME) {
+                    HomeScreen(
+                        onInicioClick = {
+                            MyNavController.navigate(Routes.LOGIN)
                         }
                     )
                 }
@@ -72,9 +86,10 @@ class MainActivity : ComponentActivity() {
 
 }
 
-object Routes{
+object Routes {
     const val LOGIN = "login"
     const val REGISTER = "register"
     const val REGISTER_STEP_2 = "register_step_2"
     const val REGISTER_STEP_3 = "register_step_3"
+    const val HOME = "home"
 }

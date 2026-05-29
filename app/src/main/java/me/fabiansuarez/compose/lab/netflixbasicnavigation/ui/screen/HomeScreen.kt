@@ -37,13 +37,9 @@ import me.fabiansuarez.compose.lab.netflixbasicnavigation.ui.theme.*
 
 
 // ─── HomeScreen ───────────────────────────────────────────────────────────────
-@Preview(
-    name = "Netflix Home Screen",
-    showBackground = true,
-    showSystemUi = true
-)
+
 @Composable
-fun HomeScreen() {
+fun HomeScreen(onInicioClick: () -> Unit) {
     var selectedTab by remember { mutableStateOf(0) }
 
     Box(
@@ -81,7 +77,8 @@ fun HomeScreen() {
         // ── Bottom navigation bar ────────────────────────────────────────────
         NetflixBottomBar(
             selectedIndex = 0,
-            modifier = Modifier.align(Alignment.BottomCenter)
+            modifier = Modifier.align(Alignment.BottomCenter),
+            onInicioClick = onInicioClick
         )
     }
 }
@@ -495,7 +492,8 @@ fun NetflixMovieCard(movie: NetflixMovie) {
 @Composable
 fun NetflixBottomBar(
     selectedIndex: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onInicioClick: () -> Unit
 ) {
     val items = listOf(
         Pair("Inicio", Icons.Default.Home),
@@ -514,7 +512,9 @@ fun NetflixBottomBar(
         items.forEachIndexed { index, (label, icon) ->
             NavigationBarItem(
                 selected = index == selectedIndex,
-                onClick = {},
+                onClick = {
+                    if (label == "Inicio") onInicioClick()
+                },
                 icon = {
                     Icon(
                         imageVector = icon,
